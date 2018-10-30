@@ -28,4 +28,23 @@ export class PostsComponent {
         console.log(response.json());
       });
   }
+
+  updatePost(post) {
+    //this.http.patch for only part of post
+    //this.http.put to edit entirely
+    // this.http.put(this.url, JSON.stringify(post))
+    this.http.patch(this.url + '/' +post.id, JSON.stringify({isRead: true}))
+    .subscribe(response=> {
+      console.log(response.json())
+    });
+  }
+
+  deletePost(post) {
+    this.http.delete(this.url+'/'+post.id)
+    .subscribe(response => {
+      let index = this.posts.indexOf(post);
+      this.posts.splice(index,1);
+      // console.log(response);
+    });
+  }
 }
